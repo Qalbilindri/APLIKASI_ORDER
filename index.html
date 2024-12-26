@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Husain.apps</title>
+    <style>
+        /* Reset and Base Styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(to bottom, #f6f9fc, #e8edf4);
+            color: #333;
+            line-height: 1.8;
+        }
+
+        header {
+            background: linear-gradient(120deg, #1e3c72, #2a5298);
+            color: white;
+            text-align: center;
+            padding: 3rem 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: bold;
+        }
+
+        header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            margin-top: 0.5rem;
+        }
+
+        nav {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            background: #1e3c72;
+            padding: 1rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            background: #2a5298;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        nav a:hover {
+            background: #4f83cc;
+            transform: translateY(-2px);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 2rem auto;
+            background: white;
+            padding: 2.5rem;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            border-radius: 12px;
+        }
+
+        .container h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: #1e3c72;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input {
+            width: 100%;
+            padding: 0.85rem;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: #f8f9fa;
+            transition: all 0.3s ease;
+        }
+
+        input:focus {
+            border-color: #4f83cc;
+            outline: none;
+            background: #e9eff7;
+        }
+
+        button {
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            color: white;
+            border: none;
+            padding: 0.8rem 1.8rem;
+            font-size: 1rem;
+            font-weight: bold;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+        }
+
+        button:hover {
+            background: #4f83cc;
+            transform: translateY(-2px);
+        }
+
+        footer {
+            text-align: center;
+            font-size: 1rem;
+            color: #666;
+            background: #f6f9fc;
+            padding: 2rem;
+            margin-top: 3rem;
+            box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        footer a {
+            text-decoration: none;
+            color: #1e3c72;
+            font-weight: bold;
+            transition: color 0.3s ease;
+        }
+
+        footer a:hover {
+            color: #2a5298;
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .result-item, .cart-item {
+            padding: 1.25rem;
+            background: #f9fafc;
+            border: 1px solid #ddd;
+            margin-bottom: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .result-item button, .cart-item button {
+            margin-right: 0.75rem;
+            padding: 0.6rem 1.25rem;
+            font-size: 0.9rem;
+            background: #4f83cc;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        .result-item button:hover, .cart-item button:hover {
+            background: #2a5298;
+            transform: translateY(-2px);
+        }
+
+        .nota-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 2rem;
+        }
+
+        .nota-table th, .nota-table td {
+            border: 1px solid #ddd;
+            text-align: center;
+            padding: 0.85rem;
+        }
+
+        .nota-table th {
+            background-color: #1e3c72;
+            color: white;
+            font-weight: bold;
+        }
+
+        .nota-table td {
+            background-color: #f9f9f9;
+        }
+
+        #cart-total {
+            font-weight: bold;
+            color: #1e3c72;
+        }
+
+        @media (max-width: 768px) {
+            nav {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .container {
+                padding: 2rem;
+            }
+
+            header h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Husain.apk</h1>
+        <p>Aplikasi Khusus didesain oleh Husain</p>
+    </header>
+    <nav>
+        <a href="#add-page" id="nav-add">Tambah Barang</a>
+        <a href="#search-page" id="nav-search">Cari Barang</a>
+        <a href="#cart-page" id="nav-cart">Keranjang</a>
+        <a href="#stock-history-page" id="nav-stock-history">Riwayat Stok</a>
+    </nav>
+
+    <!-- Tambah Barang -->
+    <div class="container" id="add-page">
+        <h2>Tambah Barang</h2>
+        <div class="form-group">
+            <label for="name">Nama Barang</label>
+            <input type="text" id="name" placeholder="Masukkan nama barang">
+        </div>
+        <div class="form-group">
+            <label for="price">Harga (Rupiah)</label>
+            <input type="text" id="price" placeholder="Masukkan harga barang, contoh: 1.000.000">
+        </div>
+        <div class="form-group">
+            <label for="barcode">Barcode (Opsional)</label>
+            <input type="text" id="barcode" placeholder="Scan barcode atau masukkan manual">
+        </div>
+        <div class="form-group">
+            <label for="stock">Stok Barang</label>
+            <input type="number" id="stock" placeholder="Masukkan stok barang">
+        </div>
+        <button id="save">Simpan Barang</button>
+    </div>
+
+    <!-- Cari Barang -->
+    <div class="container hidden" id="search-page">
+        <h2>Cari Barang</h2>
+        <div class="form-group">
+            <label for="search-name">Nama Barang</label>
+            <input type="text" id="search-name" placeholder="Masukkan nama barang">
+        </div>
+        <button id="reset-search">Reset Pencarian</button>
+        <h3>Hasil Pencarian:</h3>
+        <div id="search-result"></div>
+    </div>
+
+    <!-- Keranjang -->
+    <div class="container hidden" id="cart-page">
+        <h2>Keranjang</h2>
+        <div id="cart-items"></div>
+        <h3>Total: Rp <span id="cart-total">0</span></h3>
+        <button id="checkout">Buat Nota</button>
+        <button id="reset-cart">Reset Keranjang</button>
+        <div id="nota"></div>
+    </div>
+
+    <!-- Riwayat Stok -->
+    <div class="container hidden" id="stock-history-page">
+        <h2>Riwayat Stok</h2>
+        <div class="form-group">
+            <label for="stock-search-name">Cari Barang Stok</label>
+            <input type="text" id="stock-search-name" placeholder="Masukkan nama barang">
+        </div>
+        <button id="reset-stock-search">Reset Pencarian</button>
+        <h3>Daftar Stok Barang:</h3>
+        <div id="stock-history-result"></div>
+    </div>
+
+    <footer>
+        © 2024 Husain.apps - <a href="#">Di Desain Khusus oleh Husain</a>
+    </footer>
+
+    <script>
+         const pages = ['add-page', 'search-page', 'cart-page', 'stock-history-page'];
+
+// Fungsi untuk mengatur halaman yang aktif
+function setActivePage(activePageId) {
+    pages.forEach(pageId => {
+        const page = document.getElementById(pageId);
+        if (pageId === activePageId) {
+            page.classList.remove('hidden');
+        } else {
+            page.classList.add('hidden');
+        }
+    });
+}
+
+// Navigasi antar halaman
+document.getElementById('nav-add').addEventListener('click', () => setActivePage('add-page'));
+document.getElementById('nav-search').addEventListener('click', () => setActivePage('search-page'));
+document.getElementById('nav-cart').addEventListener('click', () => setActivePage('cart-page'));
+document.getElementById('nav-stock-history').addEventListener('click', () => setActivePage('stock-history-page'));
+
+// Format angka dengan titik
+function formatNumber(number) {
+    return number.toLocaleString('id-ID');
+}
+</script>
+
+
+
+<script>
+let items = JSON.parse(localStorage.getItem('items')) || [];
+let cart = [];
+
+// Navigasi halaman
+const navAdd = document.getElementById('nav-add');
+const navSearch = document.getElementById('nav-search');
+const navCart = document.getElementById('nav-cart');
+const navStockHistory = document.getElementById('nav-stock-history');
+const addPage = document.getElementById('add-page');
+const searchPage = document.getElementById('search-page');
+const cartPage = document.getElementById('cart-page');
+const stockHistoryPage = document.getElementById('stock-history-page');
+
+navAdd.addEventListener('click', () => {
+    addPage.classList.remove('hidden');
+    searchPage.classList.add('hidden');
+    cartPage.classList.add('hidden');
+    stockHistoryPage.classList.add('hidden');
+});
+
+navSearch.addEventListener('click', () => {
+    searchPage.classList.remove('hidden');
+    addPage.classList.add('hidden');
+    cartPage.classList.add('hidden');
+    stockHistoryPage.classList.add('hidden');
+    performSearch(); // Refresh hasil pencarian
+});
+
+navCart.addEventListener('click', () => {
+    cartPage.classList.remove('hidden');
+    searchPage.classList.add('hidden');
+    addPage.classList.add('hidden');
+    stockHistoryPage.classList.add('hidden');
+    updateCart();
+});
+
+navStockHistory.addEventListener('click', () => {
+    stockHistoryPage.classList.remove('hidden');
+    searchPage.classList.add('hidden');
+    cartPage.classList.add('hidden');
+    addPage.classList.add('hidden');
+    performStockSearch();
+});
+
+// Tambah Barang
+const saveButton = document.getElementById('save');
+saveButton.addEventListener('click', () => {
+    const name = document.getElementById('name').value.trim();
+    const price = document.getElementById('price').value.trim();
+    const barcode = document.getElementById('barcode').value.trim();
+    const stock = parseInt(document.getElementById('stock').value.trim());
+
+    if (name && price && !isNaN(stock)) {
+        items.push({ name, price, barcode, stock });
+        localStorage.setItem('items', JSON.stringify(items));
+        alert('Barang berhasil disimpan!');
+        document.getElementById('name').value = '';
+        document.getElementById('price').value = '';
+        document.getElementById('barcode').value = '';
+        document.getElementById('stock').value = '';
+    } else {
+        alert('Nama, harga, dan stok barang wajib diisi dengan benar!');
+    }
+});
+
+// Cari Barang
+const searchNameInput = document.getElementById('search-name');
+const searchResult = document.getElementById('search-result');
+const resetSearchButton = document.getElementById('reset-search');
+
+function performSearch() {
+    const queryName = searchNameInput.value.trim().toLowerCase();
+    const results = items.filter(item => item.name.toLowerCase().includes(queryName));
+    searchResult.innerHTML = results.map((item) => `
+        <div class="result-item">
+            <p>Nama: ${item.name}</p>
+            <p>Harga: Rp ${item.price}</p>
+            <p>Barcode: ${item.barcode || 'N/A'}</p>
+            <p>Stok: ${item.stock}</p>
+            <button onclick="addToCart('${item.name}')">Tambah ke Keranjang</button>
+            <button onclick="editItem('${item.name}')">Edit</button>
+            <button onclick="deleteItem('${item.name}')">Hapus</button>
+        </div>
+    `).join('') || '<p>Barang tidak ditemukan</p>';
+}
+
+searchNameInput.addEventListener('input', performSearch);
+resetSearchButton.addEventListener('click', () => {
+    searchNameInput.value = '';
+    searchResult.innerHTML = '';
+});
+
+function editItem(name) {
+    const item = items.find(item => item.name === name);
+    if (item) {
+        const newName = prompt('Edit Nama Barang:', item.name);
+        const newPrice = prompt('Edit Harga Barang:', item.price);
+        const newBarcode = prompt('Edit Barcode Barang:', item.barcode || '');
+        const newStock = parseInt(prompt('Edit Stok Barang:', item.stock));
+
+        if (newName && newPrice && !isNaN(newStock)) {
+            item.name = newName;
+            item.price = newPrice;
+            item.barcode = newBarcode;
+            item.stock = newStock;
+            localStorage.setItem('items', JSON.stringify(items));
+            alert('Barang berhasil diperbarui!');
+            performSearch();
+        }
+    }
+}
+
+function deleteItem(name) {
+    if (confirm('Apakah Anda yakin ingin menghapus barang ini?')) {
+        items = items.filter(item => item.name !== name);
+        localStorage.setItem('items', JSON.stringify(items));
+        alert('Barang berhasil dihapus!');
+        performSearch();
+    }
+}
+
+function addToCart(name) {
+    const item = items.find(item => item.name === name);
+
+    if (item.stock <= 0) {
+        alert('Stok barang habis!');
+        return;
+    }
+
+    const existingItem = cart.find(cartItem => cartItem.name === item.name);
+
+    if (existingItem) {
+        existingItem.quantity++;
+    } else {
+        cart.push({ ...item, quantity: 1 });
+    }
+
+    item.stock--;
+    localStorage.setItem('items', JSON.stringify(items));
+    alert(`Barang "${item.name}" berhasil ditambahkan ke keranjang!`);
+    performSearch();
+}
+
+// Keranjang
+const cartItems = document.getElementById('cart-items');
+const cartTotal = document.getElementById('cart-total');
+const nota = document.getElementById('nota');
+
+function updateCart() {
+    cartItems.innerHTML = cart.map((item, index) => `
+        <div class="cart-item">
+            <p>${item.name} x${item.quantity}</p>
+            <p>Harga: Rp ${parseInt(item.price.replace(/\./g, '')) * item.quantity}</p>
+            <button onclick="increaseQuantity(${index})">+</button>
+            <button onclick="decreaseQuantity(${index})">-</button>
+            <button onclick="removeFromCart(${index})">Hapus</button>
+        </div>
+    `).join('');
+    const total = cart.reduce((sum, item) => sum + parseInt(item.price.replace(/\./g, '')) * item.quantity, 0);
+    cartTotal.textContent = total.toLocaleString('id-ID');
+}
+
+function increaseQuantity(index) {
+    const cartItem = cart[index];
+    const stockItem = items.find(item => item.name === cartItem.name);
+
+    if (stockItem.stock > 0) {
+        cart[index].quantity++;
+        stockItem.stock--;
+        localStorage.setItem('items', JSON.stringify(items));
+        updateCart();
+    } else {
+        alert('Stok barang habis!');
+    }
+}
+
+function decreaseQuantity(index) {
+    const cartItem = cart[index];
+    const stockItem = items.find(item => item.name === cartItem.name);
+
+    if (cartItem.quantity > 1) {
+        cart[index].quantity--;
+        stockItem.stock++;
+        localStorage.setItem('items', JSON.stringify(items));
+        updateCart();
+    } else {
+        removeFromCart(index);
+    }
+}
+
+function removeFromCart(index) {
+    const cartItem = cart[index];
+    const stockItem = items.find(item => item.name === cartItem.name);
+
+    stockItem.stock += cartItem.quantity;
+    cart.splice(index, 1);
+    localStorage.setItem('items', JSON.stringify(items));
+    updateCart();
+}
+
+document.getElementById('checkout').addEventListener('click', () => {
+    if (cart.length === 0) {
+        alert('Keranjang kosong!');
+        return;
+    }
+
+    const date = new Date();
+    const formattedDate = `${date.toLocaleDateString()} ${date.toLocaleTimeString()}`;
+    const notaHtml = `
+        <h3>Nota Transaksi</h3>
+        <p>Tanggal: ${formattedDate}</p>
+        <table class="nota-table">
+            <thead>
+                <tr>
+                    <th>Nama Barang</th>
+                    <th>Jumlah</th>
+                    <th>Harga Satuan</th>
+                    <th>Total Harga</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${cart.map(item => `
+                    <tr>
+                        <td>${item.name}</td>
+                        <td>${item.quantity}</td>
+                        <td>Rp ${parseInt(item.price.replace(/\./g, '')).toLocaleString('id-ID')}</td>
+                        <td>Rp ${(parseInt(item.price.replace(/\./g, '')) * item.quantity).toLocaleString('id-ID')}</td>
+                    </tr>
+                `).join('')}
+                <tr>
+                    <td colspan="3"><strong>Total</strong></td>
+                    <td><strong>Rp ${cart.reduce((sum, item) => sum + parseInt(item.price.replace(/\./g, '')) * item.quantity, 0).toLocaleString('id-ID')}</strong></td>
+                </tr>
+            </tbody>
+        </table>
+    `;
+    nota.innerHTML = notaHtml;
+    cart = [];
+    updateCart();
+});
+
+document.getElementById('reset-cart').addEventListener('click', () => {
+    cart.forEach(cartItem => {
+        const stockItem = items.find(item => item.name === cartItem.name);
+        stockItem.stock += cartItem.quantity;
+    });
+    cart = [];
+    updateCart();
+});
+
+// Riwayat Stok
+const stockSearchNameInput = document.getElementById('stock-search-name');
+const stockHistoryResult = document.getElementById('stock-history-result');
+const resetStockSearchButton = document.getElementById('reset-stock-search');
+
+function performStockSearch() {
+    const queryName = stockSearchNameInput.value.trim().toLowerCase();
+    const results = items.filter(item => item.name.toLowerCase().includes(queryName));
+    stockHistoryResult.innerHTML = results.map((item) => `
+        <div class="result-item">
+            <p>Nama: ${item.name}</p>
+            <p>Stok: ${item.stock}</p>
+        </div>
+    `).join('') || '<p>Barang tidak ditemukan</p>';
+}
+
+stockSearchNameInput.addEventListener('input', performStockSearch);
+resetStockSearchButton.addEventListener('click', () => {
+    stockSearchNameInput.value = '';
+    stockHistoryResult.innerHTML = '';
+});
+</script>
+</body>
+</html>
+
+
+    
